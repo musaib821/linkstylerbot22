@@ -355,6 +355,14 @@ gen_docs = ["pytoolconfig", "sphinx-rtd-theme (>=1.0.0)", "sphinx-autodoc-typehi
 doc = ["sphinx (>=4.5.0)", "tabulate (>=0.8.9)"]
 
 [[package]]
+name = "pytube"
+version = "12.1.2"
+description = "Python 3 library for downloading YouTube Videos."
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[[package]]
 name = "replit"
 version = "3.2.4"
 description = "A library for interacting with features of repl.it"
@@ -582,7 +590,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "flake8 
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8.0,<3.9"
-content-hash = "6ebcc3669448be8622b4105cc1114e7f05bf6f04a7cdc873e231276d8e53ddd9"
+content-hash = "b887e01efbe11762aa2a9078d4762b61e1c5786d8f060466cb2bb6e561b92020"
 
 [metadata.files]
 aiohttp = []
@@ -616,6 +624,7 @@ pyparsing = []
 pytelegrambotapi = []
 python-lsp-jsonrpc = []
 pytoolconfig = []
+pytube = []
 replit = []
 replit-python-lsp-server = []
 requests = []
