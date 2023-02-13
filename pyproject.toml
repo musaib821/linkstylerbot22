@@ -14,6 +14,10 @@ pyTelegramBotAPI = "3.7.7"
 telebot = "^0.0.4"
 allow = "^0.0.3"
 pytube = "^12.1.2"
+virtualenv = "^20.19.0"
+python-telegram-bot = "^20.0"
+telegram = "^0.0.1"
+pandas = "^1.5.3"
 
 [tool.poetry.dev-dependencies]
 debugpy = "^1.6.2"
