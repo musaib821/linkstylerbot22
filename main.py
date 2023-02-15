@@ -18,13 +18,18 @@ def check_member(id,):
   return True
  else :
    return False 
-
-
+def delh(m):
+ bot.delete_message (chat_id=m.chat.id,message_id=m.message_id,timeout=5)
 #@bot.message_handler(commands=[ 'start'])
 #def send_welcome(message):
 # bot.reply_to(message,"Hi Master") 
+@bot.channel_post_handler(content_types=['text']) 
+def reply_ch(m):
+  #print (m)
+  bot.edit_message_text(chat_id=m.chat.id,message_id=m.message_id, text="Text In Channel ")
 @bot.message_handler(commands=[ 'help','start'])
 def send_help(m):
+# delh(m)
  global mt 
  mt=m.from_user.id
   
@@ -48,28 +53,37 @@ def get_text1(m):
   
    if check_member(m.from_user.id):
     bot.reply_to(m,"Done "+"Text1 Set To ["+text1+"] Now Send Links")
+   # delh(m)
    else :
     bot.reply_to(m, "Join Channel First @musaibofficial")
 #@bot.message_handler(commands=['rg'])
 #def rhh(m):
-  
+   delh(m)
 @bot.message_handler(commands=['rlength'])
+# delh(m)
 def row(v):
+ #delh(m)
+ #print (v)
+ #vmessageid=v.message_id+1
  row=[InlineKeyboardButton('1', callback_data="1")], [InlineKeyboardButton('2', callback_data="2")]
  m2 =InlineKeyboardMarkup(row)
  @bot.callback_query_handler(func=lambda call: True)
  def callback_query(call):
     if call.data == "1":
+     bot.edit_message_text("Now Sends Links",chat_id=bbk.chat.id,message_id=bbk.id)
      global rrr
      rrr=1 
      bot.answer_callback_query(call.id, "Answer is Yes")
     elif call.data == "2":
-     global rr
-     rr=2
+      bot.edit_message_text("Now Sends Links",chat_id=bbk.chat.id,message_id=bbk.id)
+      global rr 
+      rr=2
     bot.answer_callback_query(call.id, "Answer is No")
-   
- bot.reply_to(v,text=" tex heu susueu hesheh jeueeu sueus hseh t",reply_markup=m2)
+ #bot.delete_message (chat.id=v.chat.id,vmessageid)
+ bbk=bot.reply_to(v,text=" tex heu susueu hesheh jeueeu sueus hseh t",reply_markup=m2)
  
+ #print (bbk)
+ #bot.delete_message (chat_id=bbk.chat.id,message_id=bbk.message_id,timeout=5)
 @bot.message_handler(commands=['link']) 
 def link(m2):
  global sorted

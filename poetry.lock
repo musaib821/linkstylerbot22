@@ -636,14 +636,6 @@ python-versions = "*"
 requests = "*"
 
 [[package]]
-name = "telegram"
-version = "0.0.1"
-description = "Telegram APIs"
-category = "main"
-optional = false
-python-versions = "*"
-
-[[package]]
 name = "tldextract"
 version = "3.4.0"
 description = "Accurately separates a URL's subdomain, domain, and public suffix, using the Public Suffix List (PSL). By default, this includes the public ICANN TLDs and their exceptions. You can optionally support the Public Suffix List's private domains as well."
@@ -776,7 +768,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "flake8 
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8.0,<3.9"
-content-hash = "c530d972c8ee43a75b15bde9ba9affe7580224078459f6222703d1e8d071e980"
+content-hash = "735161264410dbb72c8e4ea1803f814526f0068a5fe1c9ece410f18d995fa61d"
 
 [metadata.files]
 aiohttp = []
@@ -830,7 +822,6 @@ rope = []
 six = []
 sniffio = []
 telebot = []
-telegram = []
 tldextract = []
 toml = []
 tomli = []
