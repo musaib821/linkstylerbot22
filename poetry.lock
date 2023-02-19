@@ -904,7 +904,7 @@ typeguard = "*"
 
 [metadata]
 lock-version = "1.1"
-python-versions = "=3.10.9"
+python-versions = "=3.8.16"
 content-hash = "d25f21860c875283e21ce39154f50caf6e31dfe4a7f02d863a43788d334cce20"
 
 [metadata.files]
