@@ -1,167 +1,180 @@
 import os
-import os
-#my_secret = os.environ['BOT_TOKEN']
-my_secret = os.environ['BOT_TOKEN']
-import os
 import telebot
-import re
-from pytube import YouTube
-from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
-link_regex = re.compile('((https?):((//)|(\\\\))+([\w\d:@%/;$()~_?\+-=\\\.&](!)?)*)', re.DOTALL)
-#my_secret = "5613612d0DlRUHlGExGFpJJ_pxhvcFpS5"
-bot = telebot.TeleBot(my_secret)
-def check_member(id,):
- chat_id="1381749386"
- user_id=id
- ChatMember=bot. get_chat_member(chat_id="@musaibofficial",user_id=user_id) 
- if ChatMember.status=="member" :
-  return True
- else :
-   return False 
-def delh(m):
- bot.delete_message (chat_id=m.chat.id,message_id=m.message_id,timeout=5)
-#@bot.message_handler(commands=[ 'start'])
-#def send_welcome(message):
-# bot.reply_to(message,"Hi Master") 
-@bot.channel_post_handler(content_types=['text']) 
-def reply_ch(m):
-  #print (m)
-  bot.edit_message_text(chat_id=m.chat.id,message_id=m.message_id, text="Text In Channel ")
-@bot.message_handler(commands=[ 'help','start'])
-def send_help(m):
-# delh(m)
- global mt 
- mt=m.from_user.id
-  
- bot.reply_to(m,text="Hello Master I Am Link Styler Bot \n Use /text To Send Me Text That Will Be Clickable \n use /link to send me Link That You Want To Style \n use /head if you want to add any text before links like a heading  \n For More Info You Can Ping My Master @ffmusaib ") 
- chat_id="1381749386"
- user_id=mt
- ChatMember=bot. get_chat_member(chat_id="@musaibofficial",user_id=user_id) 
- #if ChatMember.status=="member" :
-@bot.message_handler(commands=['title']) 
-   #if check_member():
-def get_text1(m):
-   global text1
-   text_in=m.text.split()
-   text_in.remove("/title")
-   text1=" ".join(map(str,text_in)) 
-   if len(text1)>0: 
-    global text2
-    text2=text1
-   else:
-    text2=" "
-  
-   if check_member(m.from_user.id):
-    bot.reply_to(m,"Done "+"Text1 Set To ["+text1+"] Now Send Links")
-   # delh(m)
-   else :
-    bot.reply_to(m, "Join Channel First @musaibofficial")
-#@bot.message_handler(commands=['rg'])
-#def rhh(m):
-   delh(m)
-@bot.message_handler(commands=['rlength'])
-# delh(m)
-def row(v):
- #delh(m)
- #print (v)
- #vmessageid=v.message_id+1
- row=[InlineKeyboardButton('1', callback_data="1")], [InlineKeyboardButton('2', callback_data="2")]
- m2 =InlineKeyboardMarkup(row)
- @bot.callback_query_handler(func=lambda call: True)
- def callback_query(call):
-    if call.data == "1":
-     bot.edit_message_text("Now Sends Links",chat_id=bbk.chat.id,message_id=bbk.id)
-     global rrr
-     rrr=1 
-     bot.answer_callback_query(call.id, "Answer is Yes")
-    elif call.data == "2":
-      bot.edit_message_text("Now Sends Links",chat_id=bbk.chat.id,message_id=bbk.id)
-      global rr 
-      rr=2
-    bot.answer_callback_query(call.id, "Answer is No")
- #bot.delete_message (chat.id=v.chat.id,vmessageid)
- bbk=bot.reply_to(v,text=" tex heu susueu hesheh jeueeu sueus hseh t",reply_markup=m2)
- 
- #print (bbk)
- #bot.delete_message (chat_id=bbk.chat.id,message_id=bbk.message_id,timeout=5)
-@bot.message_handler(commands=['link']) 
-def link(m2):
- global sorted
- sorted=m2.text.split()
- def srt_link(x):
-  return x.startswith("https") 
- global get_links
- get_links= filter(srt_link,sorted)
- global var 
- var=[]
- for i,x in enumerate(get_links,start=1):
-      by=f"InlineKeyboardButton('{str(i) }',url='{str(x)}')"
-      bytt=eval(by)
-      var.append(bytt)
- global zz 
- zz=len(var)
- li =','.join(map(str,var))
- res = [] 
- NewList= [[x] for x in var]
- list1=[]
- list2=[]
- for x in range(zz):
-  if x%2==0:
-   list1.append(var[x])
-  else:
-   list2.append(var[x])
- global list4
- list4=[]
- length1=len(list1)
- length2=len(list2)
- if length1>=length2:
-  length=length1 
- else:
-  length=length2 
- try:
-  for i in range(length):
-   list4.append([list1[i],list2[i]]) 
- except IndexError:
-   list4.append([list1[i]])
- try:
-   row_length=rr 
- except NameError:
-   row_length=rrr 
- except NameError:
-   row_length=2
- if row_length ==1:
-  legth=NewList
- else :
-  legth=list4
- m =InlineKeyboardMarkup(legth,row_width=2)
- if check_member(m2.from_user.id):
-   bot.reply_to(m2,text=m2.chat.id,reply_markup=m)
- else:
-  bot.reply_to(m2, "Join Channel First @musaibofficial")
-    
+from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup
+from links import *
+from telebot import custom_filters
+from telebot.handler_backends import State, StatesGroup
 
-# else:
-  #bot.send_message(m.chat.id, "Please Join Channel First")
-@bot.message_handler(commands=['default'])
-def reply_fast(m):
-  bot.reply_to(m, " Invalid Command 😕😕")
-   
-                 
-@bot.message_handler(commands=['cht'])
-def checkid(msg):
- 
-    global chat_id 
-    chat_id="1381749386"
-    user_id=msg.from_user.id
-    ChatMember=bot. get_chat_member(chat_id="@musaibofficial",user_id=user_id) 
-    if ChatMember.status=="left" :
-     bot.send_message (msg.chat.id, 'Not Joined')
-    else:  
-      bot.send_message(msg.chat.id,'Joined')
-@bot.message_handler(content_types=['text']) 
-def default(hm):
-  if hm.text[0] =='/':
-   bot.reply_to(hm,text="Invalid Command 😕😕")
-  else :
-    bot.reply_to(hm, "Text Is Not Allowed")
-bot.infinity_polling()
+from telebot.storage import StateMemoryStorage
+
+state_storage = StateMemoryStorage()  #
+my_secret = os.environ['BOT_TOKEN']
+bot = telebot.TeleBot(my_secret, state_storage=state_storage)
+
+
+class MyStates(StatesGroup):
+  # Just name variables differently
+  name = State()  # creating instances of State class is enough from now
+  user_id = State()
+  param = State()
+
+
+def gen_markup():
+  buttons = [[InlineKeyboardButton('Join Channel', url='t.me/botarcheive')],
+             [InlineKeyboardButton('Lets Start', callback_data='start')]]
+  m = InlineKeyboardMarkup(buttons)
+  return m
+
+
+def gen_markup2():
+  buttons = [[InlineKeyboardButton('Setting', callback_data='setting')],
+             [InlineKeyboardButton('Set Icon', callback_data='links')]]
+  m = InlineKeyboardMarkup(buttons)
+  return m
+
+
+def gen_markup3():
+  buttons = [[InlineKeyboardButton('HTML ', callback_data='html')],
+             [
+               InlineKeyboardButton('1', callback_data='1'),
+               InlineKeyboardButton('2', callback_data='2')
+             ], [InlineKeyboardButton('Back', callback_data='back')]]
+  m = InlineKeyboardMarkup(buttons)
+  return m
+
+
+def gen_markup4():
+  buttons = [[InlineKeyboardButton('HTML ', callback_data='html')],
+             [
+               InlineKeyboardButton('1✅', callback_data='1'),
+               InlineKeyboardButton('2', callback_data='2')
+             ], [InlineKeyboardButton('Back', callback_data='back')]]
+  m = InlineKeyboardMarkup(buttons)
+  return m
+
+
+def gen_markup5():
+  buttons = [[InlineKeyboardButton('HTML ', callback_data='html')],
+             [
+               InlineKeyboardButton('1', callback_data='1'),
+               InlineKeyboardButton('2 ✅', callback_data='2')
+             ], [InlineKeyboardButton('Back', callback_data='back')]]
+  m = InlineKeyboardMarkup(buttons)
+  return m
+
+
+def snd_cl(m, jj):
+  bot.set_state(m, MyStates.param)
+  with bot.retrieve_data(m) as data:
+    data['param'] = jj
+    data['id'] = m
+# print(m)
+
+
+#  id=m.from_user.id
+  Data = data
+  news = f"From User {Data['id']} {Data['param']}"
+  bot.send_message(chat_id='-1001784188368', text=news)
+
+
+def gen_markup6():
+  buttons = [[InlineKeyboardButton('HTML✅', callback_data='html')],
+             [
+               InlineKeyboardButton('1', callback_data='1'),
+               InlineKeyboardButton('2', callback_data='2')
+             ], [InlineKeyboardButton('Back', callback_data='back')]]
+  m = InlineKeyboardMarkup(buttons)
+  return m
+
+
+@bot.callback_query_handler(func=lambda call: True)
+def callback_query(call):
+  # print (call)
+  if call.data == "start":
+    bot.edit_message_text(message_id=v.id,
+                          chat_id=call.from_user.id,
+                          text="Answer is Yes",
+                          reply_markup=gen_markup2())
+  elif call.data == "No":
+    bot.send_message(v.chat.id, "Answer Is No")
+  elif call.data == "links":
+    bot.edit_message_text(message_id=v.id,
+                          chat_id=call.from_user.id,
+                          text=" Set Your Name")
+    #if text=='vv':
+    #  bot.reply_to(v,"vv coicker")
+
+  elif call.data == 'setting':
+    bot.edit_message_text(message_id=v.id,
+                          chat_id=v.chat.id,
+                          text="Settings",
+                          reply_markup=gen_markup3())
+  elif call.data == 'back':
+    jj = call.data
+    snd_cl(call.from_user.id, jj)
+    bot.edit_message_text(message_id=v.id,
+                          chat_id=v.chat.id,
+                          text='Hi',
+                          reply_markup=gen_markup2())
+
+  elif call.data == '1':
+    jj = call.data
+    snd_cl(call.from_user.id, jj)
+    # print(call)
+    bot.edit_message_reply_markup(message_id=v.id,
+                                  chat_id=v.chat.id,
+                                  reply_markup=gen_markup4())
+  elif call.data == '2':
+    jj = call.data
+    snd_cl(call.from_user.id, jj)
+    #  snd_cl(call)
+
+    bot.edit_message_reply_markup(message_id=v.id,
+                                  chat_id=v.chat.id,
+                                  reply_markup=gen_markup5())
+  elif call.data == 'html':
+    jj = call.data
+    snd_cl(call.from_user.id, jj)
+    # snd_cl(call)
+    bot.edit_message_reply_markup(message_id=v.id,
+                                  chat_id=v.chat.id,
+                                  reply_markup=gen_markup6())
+    #bot.edit_message_text(message_id=v.id, chat_id=v.chat.id,text='Hi',reply_markup=gen_markup2())
+    #bot.answer_callback_query(call.id, "Answer is No")
+
+
+@bot.message_handler(commands=['start'])
+def reply(m):
+  #bot.set_state(message.from_user.id, MyStates.name, message.chat.id
+  #bot.set_state(m.from_user.id, MyStates.name, m.chat.id)
+  global v
+  v = bot.reply_to(m, "Ok ", reply_markup=gen_markup())
+
+
+# bot.send_message (chat_id='-1001784188368',text=" h")
+@bot.channel_post_handler(content_types=['text'])
+def cx(m):
+  bot.reply_to(m, m.chat.id)
+
+
+# print (v)
+@bot.message_handler(commands=['link'])
+def vvv(m):
+  # print (m)
+  # btn(m)
+  bot.reply_to(m, "Links are", reply_markup=btn(m))
+
+
+@bot.message_handler(commands=['create'])
+def create_file(m):
+  bot.reply_to(m, "File Created")
+  f = open("guru99.txt", "w")
+  f.write(m.text)
+  # f.close()
+  bot.send_document(m.chat.id, document=f)
+  f.close()
+
+
+bot.add_custom_filter(custom_filters.StateFilter(bot))
+bot.add_custom_filter(custom_filters.IsDigitFilter())
+bot.infinity_polling(skip_pending=True)
