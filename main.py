@@ -8,7 +8,8 @@ from telebot.handler_backends import State, StatesGroup
 from telebot.storage import StateMemoryStorage
 
 state_storage = StateMemoryStorage()  #
-my_secret = os.environ['BOT_TOKEN']
+
+my_secretsecret="5989308938:AAFrPoIHzm3KlIlPCsIIVQEu0uGd9RtmDb4"
 bot = telebot.TeleBot(my_secret, state_storage=state_storage)
 
 
