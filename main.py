@@ -6,13 +6,19 @@ import schedule
 import time 
 from telebot import * 
 from load_data import*  
-print (get_users())
-schedule.every(1).minutes.do(remove_sub)
-from datetime import datetime, timedelta
+#print (get_users())  
+#schedule.every(1).minutes.do(remove_sub)
+from datetime import datetime, timedelta 
 from buttons import *
 import datetime
-import pytz
+import pytz 
+VERSION="2.0.1" 
+L_DATE="03-03-2023" 
 tz = pytz.timezone('Asia/Kolkata')
+
+U_DATE=str(datetime.datetime.now().date()) 
+#print (date)  
+faqs="t.me/musaibff"
 requests=[]
 filename = "new.json"
 import telebot
@@ -174,7 +180,7 @@ text=starting_message.format(telebot.util.user_link(call.from_user)),reply_marku
     #  print (call)
     bot.edit_message_text(message_id=call.message.message_id,
                           chat_id=call.from_user.id,
-                          text=about.format(get_users()),
+                          text=about.format(L_DATE,U_DATE,get_users(),VERSION, faqs),
                           reply_markup=gen_markup13(),parse_mode='html',disable_web_page_preview=True)
   elif call.data == "back4":
     #  print (call)
@@ -318,13 +324,13 @@ text=starting_message.format(telebot.util.user_link(call.from_user)),reply_marku
     #  print (call)
     bot.edit_message_text(message_id=call.message.message_id,
                           chat_id=call.from_user.id,
-                          text=next_2,
+                          text=next_1,
                           reply_markup=gen_markup2())
   elif call.data == "about1":
     #  print (call)
     bot.edit_message_text(message_id=call.message.message_id,
                           chat_id=call.from_user.id,
-                          text=about.format(get_users()),
+                          text=about.format(L_DATE,U_DATE,get_users(),VERSION, faqs),
                           reply_markup=gen_markup131(),parse_mode='html',disable_web_page_preview=True)
   elif call.data == "back41":
     #  print (call)
@@ -363,7 +369,7 @@ text=starting_message.format(telebot.util.user_link(call.from_user)),reply_marku
                           text=next_6,
                           reply_markup=gen_markup111()) 
   elif call.data == "upi":
-    bot.send_photo(chat_id=call.from_user.id, photo=photo_id2,reply_markup=gen_markup119(),caption=upi_text,parse_mode='html')
+    bot.send_message(chat_id=call.from_user.id,reply_markup=gen_markup119(),text=upi_text,parse_mode='html')
     bot.set_state(call.from_user.id, MyStates3.user_id, call.from_user.id) 
   elif call.data =="proof":
     bot.answer_callback_query(call.id, text="Send Payment Screenshot ")
@@ -379,7 +385,7 @@ text=starting_message.format(telebot.util.user_link(call.from_user)),reply_marku
     bot.edit_message_text(message_id=call.message.message_id,
                           chat_id=call.from_user.id,
                           text=crypto,
-                          reply_markup=gen_markup129())
+                          reply_markup=gen_markup129(),parse_mode="html")
   elif call.data=='dev':
    if call.from_user.id==admins[0]:
      bot.send_message (admins[0],text=devcom)
@@ -450,76 +456,9 @@ def reply(m):
   check_sub(m.from_user.id)
 
 # print (v)
-@bot.message_handler(content_types=['photo'])
-def vvv(m):
-  
-
- photo_id = m.json['photo'][0]['file_id']
- newtext = m.caption
- till_h = newtext.index('https') 
- 
- try:
-  with bot.retrieve_data(m.from_user.id, m.chat.id) as data:
-      bv = data['title']
- except KeyError:
-  if till_h==0:
-   bv="Your Links" 
-  else:
-   caption = newtext[:till_h]
-   bv=caption 
- 
- try:
-  with bot.retrieve_data(m.from_user.id, m.from_user.id) as data:
-          row_length = data['row_length']
- except:
-        row_length = '2'
- try:
-   with bot.retrieve_data(m.from_user.id, m.chat.id) as data:
-          echo = data['text']
- except:
-        echo = ''
-    
-    #print (row_length)
- bot.send_photo(m.chat.id,
-                   photo=photo_id,
-                   caption=bv,
-                   reply_markup=btn(newtext, row_length, echo))
 
 
-@bot.message_handler(
-  regexp=
-  r"(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'\".,<>?«»“”‘’]))"
-)
-def get_text(m):
- newtext = m.text
- #try:
- till_h = newtext.index('https') 
- try:
-  with bot.retrieve_data(m.from_user.id, m.chat.id) as data:
-      bv = data['title']
- except KeyError:
-  if till_h==0:
-    bv="Your Links"
- #except :
-  # bv="Your Links"
-  else:
-   caption = newtext[:till_h]
-   bv=caption 
-  
- try:
-  with bot.retrieve_data(m.from_user.id, m.from_user.id) as data:
-          row_length = data['row_length']
- except:
-        row_length = '2'
- try:
-   with bot.retrieve_data(m.from_user.id, m.chat.id) as data:
-          echo = data['text']
- except:
-        echo = ''
- 
- bot.send_message(m.chat.id,
-                   text=bv,
-                   reply_markup=btn(newtext, row_length, echo))
+
 
 
 @bot.message_handler(content_types=['video', 'document'])
@@ -528,66 +467,15 @@ def say_no(m):
                "No Links Detected Please Use /help Or /start To Get Started ")
 
 
-@bot.channel_post_handler(
-  regexp=
-  r"(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'\".,<>?«»“”‘’]))"
-)
-def channel_handler(m):
-  add_channel(m.chat.id)
-  
-  if m.text[0:4] == '!row':
-    s=m.text.split()
-    print (s[1])
-    index = m.text.index('!row')
-    h=re.findall(r'\((.*?)\)', m.text) 
-    #print( h) 
-    try:
-     label=h[0]
-     hv=m.text.index(')')
-    except:
-      label=""
-      hv=index+4    
-      #label=m.text[6]
-    #h=telebot.util.extract_arguments(m.text)
-     # hv=m.text.index(')')
-    newtext = m.text[hv+1:]
-    till = newtext.index('https')
-    caption = newtext[:till]
-    #print(len(caption))
-    print(label)
-    row_length = m.text[4]
-   # ₹₹def check():
-    if check_channel(m.chat.id):
-      pass 
-    else:
-      if int(row_length)>3:
-        row_length="3"
-        label=" " 
 
-    if len(caption) <= 1:
-     caption = "Links"
-     bot.edit_message_text(message_id=m.id,
-                            chat_id=m.chat.id,
-                            text="links",
-                            reply_markup=btn(newtext, row_length,label)) 
-    else:
-      # pass
-      captain =caption
-      bot.edit_message_text(message_id=m.id,
-                            chat_id=m.chat.id,
-                            text=caption,
-                            reply_markup=btn(newtext, row_length,label))
-  else:
-    pass
 
 
 
 
 @bot.message_handler(commands=['post'])
 def post(m):
-  text = m.text
-
   if m.from_user.id == 1070433131:
+    text = m.text[5:]
     with open(filename, 'r') as file:
       subs = file.read()
       jsn = json.loads(subs)
@@ -658,6 +546,54 @@ def ju(m):
     remove_pro(id)
     bot.reply_to(m,"Removed User")
   else:
+    pass 
+@bot.message_handler(commands=['ver'])
+def ju(m):
+  if m.from_user.id == 1070433131:
+
+    data=m.text.split()
+    ver=data[1]
+   # days=data[2]
+    global VERSION 
+    VERSION=ver
+    bot.reply_to(m,"VERSION UPDATED")
+  else:
+    pass
+@bot.message_handler(commands=['l_date'])
+def ju(m):
+  if m.from_user.id == 1070433131:
+
+    data=m.text.split()
+    ver=data[1]
+   # days=data[2]
+    global L_DATE
+    L_DATE=ver
+    bot.reply_to(m,"UPDATED LAUNCH DATE")
+  else:
+    pass 
+@bot.message_handler(commands=['set_faq'])
+def ju(m):
+  if m.from_user.id == 1070433131:
+
+    data=m.text.split()
+    ver=data[1]
+   # days=data[2]
+    global faqs 
+    faqs=ver
+    bot.reply_to(m,"FAQs UPDATED")
+  else:
+    pass 
+@bot.message_handler(commands=['u_date'])
+def ju(m):
+  if m.from_user.id == 1070433131:
+
+    data=m.text.split()
+    ver=data[1]
+   # days=data[2]
+    global U_DATE
+    U_DATE=ver
+    bot.reply_to(m,"UPDATE TIME SET")
+  else:
     pass
 @bot.message_handler(commands=['get_info'])
 def ju(m):
@@ -669,26 +605,197 @@ def ju(m):
     bot.reply_to(m,get_pro_dt(id) )
   else:
     pass
+
+#@bot.message_handler(commands=['faqs'])
+#def givegaqs(m):
+# bot.reply_to(m,"Ch") 
+@bot.message_handler(
+  regexp=
+  r"(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'\".,<>?«»“”‘’]))"
+)
+def get_text(m):
+ newtext = m.text
+ #try:
+ till_h = newtext.index('https') 
+ try:
+  with bot.retrieve_data(m.from_user.id, m.chat.id) as data:
+      bv = data['title']
+ except KeyError:
+  if till_h==0:
+    bv="Your Links"
+ #except :
+  # bv="Your Links"
+  else:
+   caption = newtext[:till_h]
+   bv=caption 
+  
+ try:
+  with bot.retrieve_data(m.from_user.id, m.from_user.id) as data:
+          row_length = data['row_length']
+ except:
+        row_length = '2'
+ try:
+   with bot.retrieve_data(m.from_user.id, m.chat.id) as data:
+          echo = data['text']
+ except:
+        echo = ''
+ 
+ bot.send_message(m.chat.id,
+                   text=bv,
+                   reply_markup=btn(newtext, row_length, echo)) 
+@bot.message_handler(content_types=['photo'])
+def vvv(m):
+  
+
+ photo_id = m.json['photo'][0]['file_id']
+ newtext = m.caption
+ till_h = newtext.index('https') 
+ 
+ try:
+  with bot.retrieve_data(m.from_user.id, m.chat.id) as data:
+      bv = data['title']
+ except KeyError:
+  if till_h==0:
+   bv="Your Links" 
+  else:
+   caption = newtext[:till_h]
+   bv=caption 
+ 
+ try:
+  with bot.retrieve_data(m.from_user.id, m.from_user.id) as data:
+          row_length = data['row_length']
+ except:
+        row_length = '2'
+ try:
+   with bot.retrieve_data(m.from_user.id, m.chat.id) as data:
+          echo = data['text']
+ except:
+        echo = ''
+    
+    #print (row_length)
+ bot.send_photo(m.chat.id,
+                   photo=photo_id,
+                   caption=bv,
+                   reply_markup=btn(newtext, row_length, echo))
+
 @bot.channel_post_handler(content_types=['photo'])
 def boht(m):
   photo_id = m.json['photo'][0]['file_id']
+  if m.caption[0:4] == '!row': 
+    def chars(text):
+     if not re.search(r'[a-zA-Z0-9@#$%^&*]+', text):
+        return True
+     else:
+        return False
+
+    s=m.caption.split()
+    #print (s[1])
+    index = m.caption.index('!row')
+    h=re.findall(r'\((.*?)\)', m.caption) 
+    #print( h) 
+    try:
+     label=h[0]
+     hv=m.caption.index(')')
+    except:
+      label=""
+      hv=index+4    
+      #label=m.text[6]
+    #h=telebot.util.extract_arguments(m.text)
+     # hv=m.text.index(')')
+    newtext = m.caption[hv+1:]
+    till = newtext.index('https')
+    captions = newtext[:till]
+    #print(len(caption))
+   # ₹₹print(label)
+    row_length = m.caption[4]
+   # ₹₹def check():
+    if check_channel(m.chat.id):
+      pass 
+    else: 
+      label=" "
+
+      if int(row_length)>3:
+        row_length="3"
+        label=" " 
+
+    if chars(captions):
+     captions = "Links"
+     bot.edit_message_caption(message_id=m.id,
+                            chat_id=m.chat.id,
+                            caption="links",
+                            reply_markup=btn(newtext, row_length,label)) 
+    else:
+      # pass
+      captain =captions
+      bot.edit_message_caption(message_id=m.id,
+                            chat_id=m.chat.id,
+                            caption=captain,
+                            reply_markup=btn(newtext, row_length,label))
+  else:
+    pass 
+@bot.channel_post_handler(
+  regexp=
+  r"(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'\".,<>?«»“”‘’]))"
+)
+def channel_handler(m): 
+  #add_channel(m.chat.id)
+  #print(m.text) 
+  if m.text[0:4] == '!row':
+    def chars(text):
+     if not re.search(r'[a-zA-Z0-9@#$%^&*]+', text):
+        return True
+     else:
+        return False
+
+   # ms= re.sub(' +', ' ',m.text) 
+    #print (m.reply_to_message) 
     
-  newtext = m.caption
- #try:
-  till_h = newtext.index('https') 
-  try:
-   with bot.retrieve_data(m.from_user.id, m.chat.id) as data:
-      bv = data['title']
-  except KeyError:
-   if till_h==0:
-    bv="your Links" 
-   else:
-    caption = newtext[:till_h]
-    bv=caption 
-  bot.send_message(m.chat.id, photo_id)
+    #s=m.text.split()
+    #print (s[1])
+    index = m.text.index('!row')
+    h=re.findall(r'\((.*?)\)', m.text) 
+    #print( h) 
+    try:
+     label=h[0]
+     hv=m.text.index(')')
+    except:
+      label=""
+      hv=index+4    
+      #label=m.text[6]
+    #h=telebot.util.extract_arguments(m.text)
+     # hv=m.text.index(')')
+    newtext =m.text[hv+1:]
+    till = newtext.index('https')
+    caption = newtext[:till]
+    print (caption)
+    #print(len(caption))
+    #print(label)
+    row_length = m.text[4]
+   # ₹₹def check():
+    if check_channel(m.chat.id):
+      pass 
+    else:
+      label=" "
+      if int(row_length)>3:
+        row_length="3"
+        label=" " 
+    print (len(caption))
+    if chars(caption):
+     caption = "Links"
+     bot.edit_message_text(message_id=m.id,
+chat_id=m.chat.id,text=caption,reply_markup=btn(newtext, row_length,label)) 
+    else:
+      # pass
+      captain =caption
+      bot.edit_message_text(message_id=m.id,
+                           chat_id=m.chat.id,
+                          text=caption,
+                       reply_markup=btn(newtext, row_length,label))
+  else:
+    pass
 bot.add_custom_filter(custom_filters.StateFilter(bot))
 bot.add_custom_filter(custom_filters.IsDigitFilter())
 bot.infinity_polling(skip_pending=True)
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+#while True:
+    #schedule.run_pending()
+   # time.sleep(1)

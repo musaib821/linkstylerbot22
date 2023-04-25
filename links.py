@@ -12,8 +12,17 @@ def btn(m,row_length,echo=""):
  #print(row_length)
 #  global sorted
  sorted=m.split()
+ news=[]
+
+ seen=set()
+ #for item in sorted:
+   # if item not in seen:
+  #    news.append(item)
+     #   seen.add(item)
+
+ #print (news)
  def srt_link(x):
-  return x.startswith("www.") +x.startswith("https")
+  return x.startswith("https")
  #global get_links 
  var=[] 
  keyboard=InlineKeyboardMarkup(row_width=int(row_length))

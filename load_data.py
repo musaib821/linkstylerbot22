@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 import json
 import os 
 import pytz 
-tz = pytz.timezone('Asia/Kolkata') 
+tz = pytz.timezone('Asia/Kolkata')  
 def check_channel(h):
   id = str(h)
   filename = "new.json"

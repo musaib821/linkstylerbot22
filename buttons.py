@@ -1,4 +1,5 @@
 from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup 
+stripe="https://checkout.stripe.com/c/pay/cs_live_a1oSTluquwQoMPAAmsS1j63odkbgigtZwqciayDd0MONhAdHfSBn76O2A8#fidkdWxOYHwnPyd1blppbHNgWjA0SHBpb1RWRlVXTFJ3UmBPd2dGbU1GU1FfT19uUz1VUENkQDVMTkdcb1dCRnFyMXNkcEB2ZD02NzNHZlYwVVZxVTBDUUBkYkxTal9CbmdKb2dCPGk0VGZhNTVGZ2pCfWJMcScpJ3VpbGtuQH11anZgYUxhJz8nZ0xcMW9NNnE2YmpmM3VCMWJiJ3gl"
 def gen_markup():
   buttons = [[InlineKeyboardButton('Featured Channel ®️', url='https://t.me/DevSavior')],
              [InlineKeyboardButton('Lets Start ▶️', callback_data='start')]]
@@ -6,7 +7,7 @@ def gen_markup():
   return m
 def gen_markup2():
   buttons = [InlineKeyboardButton('Customize Links', callback_data='customize')],[
-InlineKeyboardButton('Help And Support',callback_data='others')],[InlineKeyboardButton('Featured Channel',url='t.me/devsavior'),InlineKeyboardButton ('◀️',callback_data='back1')]
+InlineKeyboardButton('Others',callback_data='others')],[InlineKeyboardButton('Featured Channel',url='t.me/devsavior'),InlineKeyboardButton ('◀️',callback_data='back1')]
   m = InlineKeyboardMarkup(buttons)
   return m
 def gen_markup31():
@@ -176,7 +177,7 @@ InlineKeyboardButton('Set Title ✍️',callback_data='title')],            [Inl
   m = InlineKeyboardMarkup(buttons)
   return m 
 def gen_markup11():
-  buttons = [InlineKeyboardButton('About', callback_data='about'),            InlineKeyboardButton('Account', callback_data='account')],[InlineKeyboardButton("Devb Options",callback_data='dev'),InlineKeyboardButton ('◀️',callback_data='back31_pro')]
+  buttons = [InlineKeyboardButton('About', callback_data='about'),            InlineKeyboardButton('Account', callback_data='account')],[InlineKeyboardButton("Dev Options",callback_data='dev'),InlineKeyboardButton ('◀️',callback_data='back31_pro')]
   m = InlineKeyboardMarkup(buttons)
   return m 
 def gen_markup12():
@@ -189,7 +190,7 @@ def gen_markup13():
   return m 
 def gen_markup141():
   buttons = [InlineKeyboardButton('UPI',callback_data="upi")],[InlineKeyboardButton('Crypto',callback_data='crypto')
-,InlineKeyboardButton('Stripe',url='www.stripe.pay.com')],[InlineKeyboardButton('Featured Channel',url='t.me/devsavior'),InlineKeyboardButton ('◀️',callback_data='back71')]
+,InlineKeyboardButton('Stripe',url=stripe)],[InlineKeyboardButton('Featured Channel',url='t.me/devsavior'),InlineKeyboardButton ('◀️',callback_data='back71')]
   m = InlineKeyboardMarkup(buttons) 
   return m 
 def accordec():
@@ -199,7 +200,7 @@ InlineKeyboardButton('Decline',callback_data="decline")]
   return m
 def gen_markup21():
   buttons = [InlineKeyboardButton('Customize Links', callback_data='customize1')],[
-InlineKeyboardButton('Help And Support',callback_data='others1')],[InlineKeyboardButton('Featured Channel',url='t.me/devsavior'),InlineKeyboardButton ('◀️',callback_data='back21')]
+InlineKeyboardButton('Others',callback_data='others1')],[InlineKeyboardButton('Featured Channel',url='t.me/devsavior'),InlineKeyboardButton ('◀️',callback_data='back21')]
   m = InlineKeyboardMarkup(buttons)
   return m
 def gen_markup118():
@@ -213,4 +214,5 @@ def gen_markup119():
 def gen_markup129():
   buttons = [[InlineKeyboardButton('Cancel Payment', callback_data="Cancel1"),InlineKeyboardButton('Send Proof',callback_data='proof')]]
   m = InlineKeyboardMarkup(buttons)
-  return m  
+  return m   
+nazhaz='google '
