@@ -1,13 +1,27 @@
 import os 
-from telebot import *
-from telebot.types import InlineKeyboardMarkup 
+import json 
+import re 
+import chache1
+from telebot import * 
+cha="chache.json"
+from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 #my_secret = "6294854716:AAHR19jwbCC5RtqGqBukBJY6toRojIaCAds"
 #bot = telebot.TeleBot(my_secret)
 def cream(row_lengt):
   global row_length2 
   row_length2=row_lengt
-def btn(m,row_length,echo=""): 
- if int(row_length)>=6:
+def btn(id,m,channel=False):
+ try:
+  with open ('sessions/'+str(id)+".json",'r') as f:
+   data=f.read()
+   sim=json.loads(data)
+   row_length=sim["row_width"]
+   echo=sim['title']
+ #  head
+ except :
+   row_length =2
+   echo=""
+ if int(row_length)>5:
     row_length=5
  #print(row_length)
 #  global sorted
@@ -19,24 +33,127 @@ def btn(m,row_length,echo=""):
    # if item not in seen:
   #    news.append(item)
      #   seen.add(item)
-
+ lef=[]
  #print (news)
  def srt_link(x):
-  return x.startswith("https")
+#  return x.startswith("https")
+  regex = r'(https?://[^\s]+)'
+  links = re.findall(regex,x)
+  return links
  #global get_links 
  var=[] 
  keyboard=InlineKeyboardMarkup(row_width=int(row_length))
- get_links= list(filter(srt_link,sorted))
- row = []
- for i,x in enumerate(get_links,start=1):
-    button = telebot.types.InlineKeyboardButton(text=f"{echo} {str(i)}", url=f"{str(x)}")
-    row.append(button)
-    if len(row) == int(row_length):
-        keyboard.add(*row)
-        row = []
- if row:
-     keyboard.add(*row)
- return keyboard
+ get_links= list(filter(srt_link,sorted)) 
+ #print(len(get_links))
+ lin=len(get_links)
+ row = [] 
+ keyboard2=InlineKeyboardMarkup(row_width=int(row_length))
+ #variables = []
+ row2=[]
+ #for i in range(lin):
+    #variables.append("variable_" + str(i + 1))
+ #print (variables) 
+# for i in get_links:
+  # print (i)
+ confirm=InlineKeyboardButton ("Post",callback_data ="channel_post") 
+ #ch_=InlineKeyboardButton ("Channel Post, ")
+ #rem=InlineKeyboardButton ("DONE😳 And Remove",callback_data ="con_rem")
+ edy=InlineKeyboardButton (text="Edit",callback_data='edit21')
+ for i, x in enumerate (get_links,start=1):
+    #variables[i] = int(input("Enter the value for variable_" + str(i + 1) + ": "))
+    text=f"Label {str(i)} Link:{str(x)} "
+    vas= telebot.types.InlineKeyboardButton(text=f"{echo} {str(i)}", url=f"{str(x)}")
+    row.append(vas )
+    s=[str(i-1),f"{echo} {str(i)} ",str(x)]
+    lef.append(s)
+ keyboard.add (*row)
+ 
+ #keyboard.add (edy)
+# if channel==False:
+   #  keyboard.add (edy) 
+ #else:
+ keyboard.add(edy)
+ keyboard.add (confirm)
+ for i, x in enumerate (get_links):
+    #variables[i] = int(input("Enter the value for variable_" + str(i + 1) + ": "))
+    text=f"Label {str(i)} Link:{str(x)} "
+    vas= telebot.types.InlineKeyboardButton(text=text, callback_data=str(i))
+    row2.append(vas)
+ keyboard2.add (*row2) 
+ path='sessions/'+str(id)+'.json'
+ try:
+  with open (path,'r') as f:
+   data=f.read()
+   sim=json.loads(data)
+   sim['last_button']=lef
+   sim['edits']=0
+   jj=json.dumps(sim)
+   with open (path, 'w') as f:
+      f.write(jj)
+ except:
+  with open (path, 'w') as f:
+   data=lef 
+   p={
+       "last_button":data,
+       "row_width":row_length,
+        "title":"",
+         "video":None,
+         "photo":None,
+          "edits":0,
+          "heading":"Your Links  "
+   }
+   l=json.dumps(p)
+   f.write(l)
+  # print (id)
+  # l={
+   #   "last_button":lef, 
+    #   "row_width":int(row_length), 
+     #  "title":"", 
+     #  "heading":"No Heading"
+  # }
+  # p=json.dumps(l) 
+  #  print (p)
+   #f.write(p) 
+  #  object=eval() 
+    #print (variables) 
+ #print (variable_1) 
+ #variables = {}
+# for i in range(lin):
+   # variable_name = 'button_'+str(i) 
+    #for s in get_links:
+    # varia =InlineKeyboardButton (text=str(i),url=str(s))
+    # keyboard.add (varia)
+ #print (keyboard) 
+#keyboard=InlineKeyboardMarkup(row_width=1)
+# get_links= list(filter(srt_link,sorted)) 
+ #print(len(get_links))
+# lin=len(get_links)
+# row = [] 
+ return keyboard 
+
+# variables[variable_name] = variable value
+ #print (button_1)
+# Print the created variables and their values
+# for variable_name, variable_value in variables.items():
+   # print(variable_name, "=", variable_value)
+  # keyboard.add ()
+#for i,x in enumerate(get_links,start=1):
+   # button = telebot.types.InlineKeyboardButton(text=f"{echo} {str(i)}", url=f"{str(x)}")
+    #row.append(button)
+   # if len(row) == int(row_length):
+    #    keyboard.add(*row)
+     #   row = [] 
+ 
+ #if row:
+    #keyboard.add(*row) 
+ #print (keyboard.keyboard[0])
+ # print(row[1])
+ #return keyboard  
+#for i in range(num):
+   #  var_name = "num{}".format(i+1)
+ #    var_value = InlineKeyboardButton(var_name,callback_data=i)
+  #   locals()[var_name] = var_value 
+#def 
 # Create a list of button rows by slicing the button list into groups of maximum buttons per row
  # Create a list of button rows by slicing the button list into groups of maximum buttons per row
 """ button_rows = [
