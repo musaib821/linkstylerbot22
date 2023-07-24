@@ -188,3 +188,5 @@ def get_pro_dt(h):
     days_left=str(bh)
     message = f'╒════════════════════════✰°\n ➥ Purchase Date :- {purchase_date}\n ➥ EXPIRY DATE :-  {expiry_date}\n ➥ TIME LEFT :-  {days_left} Hours\n°✰════════════════════════╛'
     return message 
+#add_channel_in_users(id,channel_id)
+ #with open()

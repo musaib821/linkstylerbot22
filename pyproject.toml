@@ -17,6 +17,8 @@ zsvision = "^0.7.12"
 pyTelegramBotAPI = "^4.10.0"
 btn = "^1.0.1"
 telebot = "^0.0.5"
+schedule = "^1.2.0"
+validators = "0.20.0"
 
 [tool.poetry.dev-dependencies]
 debugpy = "^1.6.2"

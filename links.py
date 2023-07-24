@@ -3,6 +3,8 @@ import json
 import re 
 import chache1
 from telebot import * 
+from database import load_settings as settings 
+from chache1 import add_settings 
 cha="chache.json"
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 #my_secret = "6294854716:AAHR19jwbCC5RtqGqBukBJY6toRojIaCAds"
@@ -10,17 +12,42 @@ from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 def cream(row_lengt):
   global row_length2 
   row_length2=row_lengt
-def btn(id,m,channel=False):
- try:
+def btn(id,m,channel=False,ins=True,inline_mode=False,label=None,sub=False):
+ #try:
+ result=settings(id)
+ #auto=result [4]
+# print(type(auto))
+ if ins==False:
+
   with open ('sessions/'+str(id)+".json",'r') as f:
    data=f.read()
    sim=json.loads(data)
    row_length=sim["row_width"]
-   echo=sim['title']
+   echo=sim['title'] 
+  if sub==False:
+     #row_length=2
+    # echo='Button'
+     auto=0
+  else:
+   #result=settings(id)
+    auto=result [4]
+  # print(type(row_length))
  #  head
- except :
-   row_length =2
-   echo=""
+# except :
+ else: 
+   if sub==False:
+     row_length=2
+     echo='Button'
+     auto=0
+   else:
+   #result=settings(id)
+    row_length,echo,auto=result [0], result [1], result [4]
+  # print(type(row_length))
+   #print("This Is Row Length ")
+   add_settings(id=id,rw=row_length,label=echo)
+  # print(auto)
+ if inline_mode==True:
+    echo=label
  if int(row_length)>5:
     row_length=5
  #print(row_length)
@@ -28,22 +55,24 @@ def btn(id,m,channel=False):
  sorted=m.split()
  news=[]
 
- seen=set()
+ 
  #for item in sorted:
    # if item not in seen:
   #    news.append(item)
      #   seen.add(item)
  lef=[]
  #print (news)
- def srt_link(x):
-#  return x.startswith("https")
+ 
+#  return x.startswith("https") 
+
+ def srt_links(x):
   regex = r'(https?://[^\s]+)'
   links = re.findall(regex,x)
   return links
  #global get_links 
  var=[] 
  keyboard=InlineKeyboardMarkup(row_width=int(row_length))
- get_links= list(filter(srt_link,sorted)) 
+ get_links= list(filter(srt_links,sorted)) 
  #print(len(get_links))
  lin=len(get_links)
  row = [] 
@@ -59,14 +88,25 @@ def btn(id,m,channel=False):
  #ch_=InlineKeyboardButton ("Channel Post, ")
  #rem=InlineKeyboardButton ("DONE😳 And Remove",callback_data ="con_rem")
  edy=InlineKeyboardButton (text="Edit",callback_data='edit21')
- for i, x in enumerate (get_links,start=1):
+ for i, x in enumerate (get_links,start=1): 
     #variables[i] = int(input("Enter the value for variable_" + str(i + 1) + ": "))
-    text=f"Label {str(i)} Link:{str(x)} "
-    vas= telebot.types.InlineKeyboardButton(text=f"{echo} {str(i)}", url=f"{str(x)}")
-    row.append(vas )
-    s=[str(i-1),f"{echo} {str(i)} ",str(x)]
+    text=f"Label : {str(i)} Link: {str(x)} " 
+   # print(auto)
+    if auto==0:
+     vas= telebot.types.InlineKeyboardButton(text=f"{echo} {str(i)}", url=f"{str(x)}")
+     row.append(vas) 
+    else:
+     vas= telebot.types.InlineKeyboardButton(text=f"{echo} ", url=f"{str(x)}")
+     row.append(vas) 
+    if auto==0:
+   #  print('auto_set')
+     s=[str(i-1),f"{echo} {str(i)} ",str(x)]
+    else:
+     s=[str(i-1),f"{echo}",str(x)]
     lef.append(s)
- keyboard.add (*row)
+ keyboard.add (*row) 
+ if inline_mode==True:
+  return keyboard 
  
  #keyboard.add (edy)
 # if channel==False:
