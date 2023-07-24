@@ -4,7 +4,104 @@ import datetime
 #from datetime import * 
 #from datetime import datetime, timedelta
 import json
-import ast
+import ast 
+#def add_custom_links(id,) 
+def check_for_channel_link(id):
+ conn=sqlite3.connect('database.db')
+ s=conn.cursor() 
+ s.execute(f'SELECT channel_link FROM users WHERE user_id=?',(id,))
+ p=s.fetchone()
+ return True if p[0]==1 else False
+def check_for_autodec(id):
+ conn=sqlite3.connect('database.db')
+ s=conn.cursor() 
+ s.execute(f'SELECT auto_dec FROM users WHERE user_id=?',(id,))
+ p=s.fetchone()
+ return True if p[0]==True else False
+def add_custom_links(id,data):
+ conn.connect('database.db')
+ s=conn.cursor()
+ query=f'UPDATE usere SET custom_links =? WHERE user_id=?'
+ s.execute(query,(data,id))
+ conn.commit()
+ s.close()
+ conn.close()
+def d_auto_dec(user_id):
+    conn=sqlite3.connect('database.db')
+    s=conn.cursor()
+    query=f'UPDATE users SET auto_dec =? WHERE user_id =?'
+   # if b==True:
+     # s.execute(query,(1,user_id))  
+   # else:
+    s.execute(query,(0,user_id))
+    conn.commit()
+    s.close()
+    conn.close()
+def a_auto_dec(user_id):
+    conn=sqlite3.connect('database.db')
+    s=conn.cursor()
+    query=f'UPDATE users SET auto_dec=? WHERE user_id =?'
+    #if b==True:
+    s.execute(query,(1,user_id))  
+   # else:
+     #s.execute(query,(0,user_id))
+    conn.commit()
+    s.close()
+    conn.close()
+def d_c_l(user_id):
+    conn=sqlite3.connect('database.db')
+    s=conn.cursor()
+    query=f'UPDATE users SET channel_link =? WHERE user_id =?'
+   # if b==True:
+     # s.execute(query,(1,user_id))  
+   # else:
+    s.execute(query,(0,user_id))
+    conn.commit()
+    s.close()
+    conn.close()
+def a_c_l(user_id):
+    conn=sqlite3.connect('database.db')
+    s=conn.cursor()
+    query=f'UPDATE users SET channel_link =? WHERE user_id =?'
+    #if b==True:
+    s.execute(query,(1,user_id))  
+   # else:
+     #s.execute(query,(0,user_id))
+    conn.commit()
+    s.close()
+    conn.close()
+def add_heading_db(user_id,label):
+    conn=sqlite3.connect('database.db')
+    s=conn.cursor()
+    query=f'UPDATE users SET headings =? WHERE user_id =?'
+    s.execute(query,(label,user_id))
+    conn.commit()
+    s.close()
+    conn.close()
+def add_row_width_db(user_id,w):
+    conn=sqlite3.connect('database.db')
+    s=conn.cursor()
+    query=f'UPDATE users SET row_width =? WHERE user_id =?'
+    s.execute(query,(w,user_id))
+    conn.commit()
+    s.close()
+    conn.close()
+def add_label_db(user_id,label):
+    conn=sqlite3.connect('database.db')
+    s=conn.cursor()
+    query=f'UPDATE users SET label =? WHERE user_id =?'
+    s.execute(query,(label,user_id))
+    conn.commit()
+    s.close()
+    conn.close()
+def load_settings(user_id):
+    conn=sqlite3.connect('database.db')
+    load=conn.cursor()
+    query=f"SELECT row_width,label, headings,channel_link,auto_dec FROM users WHERE user_id=?" 
+    load.execute(query,(user_id,))
+    setting=load.fetchone()
+    return setting 
+    #print (setting)
 def add_user(user_id):
     # Connect to the database
     conn = sqlite3.connect('database.db')
@@ -19,7 +116,15 @@ def add_user(user_id):
             purchase_date DATE DEFAULT 'N.A',
             Expiry_date DATE DEFAULT 'N.A',
             days INTEGER DEFAULT 0,
-            free_trail INTEGER DEFAULT 0 
+            free_trail INTEGER DEFAULT 0,
+            row_width INTEGER DEFAULT 1,
+            label TEXT DEFAULT "YOUR LINKS",
+            channel_link INTEGER DEFAULT 0,
+            headings TEXT DEFAULT "your links",
+            auto_dec INTEGER DEFAULT 1,
+            custom_links TEXT DEFAULT 0
+
+
             
         );
     '''
@@ -33,7 +138,7 @@ def add_user(user_id):
     check_cursor.close()
 
     if existing_user:
-        print("User already present")
+     return 
     else:
         # Insert the new user_id into the table
         insert_query = "INSERT INTO users (user_id) VALUES (?)"
@@ -41,7 +146,7 @@ def add_user(user_id):
         insert_cursor.execute(insert_query, (user_id,))
         conn.commit()
         insert_cursor.close()
-        print("User added successfully")
+      #  print("User added successfully")
 
     # Fetch the count of user_ids in the table
    # count_query = "SELECT COUNT(user_id) FROM users"
@@ -262,11 +367,15 @@ def dec_pro (id,days):
 def fetch_user_details (id):
     conn = sqlite3.connect('database.db')
     f=conn.cursor() 
-    f.execute(f" SELECT plan ,Expiry_date ,purchase_date,channels FROM users WHERE user_id={id}")
+    f.execute(f" SELECT plan ,Expiry_date ,purchase_date,channels,free_trail FROM users WHERE user_id={id}")
     result =f.fetchone()
    # print (result )
-    plan,e_data,p_data,channel=result
-   # print(type(channel))
+    plan,e_data,p_data,channel,free_trail=result
+   # print(type(channel)) 
+    if free_trail==0:
+        free_trail='NOT USED' 
+    else:
+        free_trail='USED'
     if channel==None:
     # print ("No Channels Found")
      channel=0
@@ -404,7 +513,7 @@ def get_user_ids(check=False):
     return users 
 def remove_pro(id):
     conn=sqlite3.connect('database.db')
-    tor=conn.cursor() 
+    tor=conn.cursor()
         # user_id.append(i[0])
          #idd=conn.cursor()f
     rt=f"UPDATE users SET Expiry_date=?, purchase_date=?,plan=? WHERE user_id={id}"

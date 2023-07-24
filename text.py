@@ -4,7 +4,7 @@ intro2="Hey There! 👋 Welcome To The Link Styler Bot 🤖. My Name Is [Insert 
 setting="This Bot Is Easy To Understand😀 \n •) Set The Title For Your Message\n •Change Style Using ⚙️ \n •) Your Data Is Not Stored Anywhere So You Have To Set These Values Everytime To Use Me ♻️"
 row_num="•Defaut is Set To 2 Buttons In Row \n •) Currently We Support Only 2 Buttons In Row,It Will Be Increased In Next Update \n •) HTML links Will Be Available In Next Update \n Join Channel To Receive New Updates 🌟"
 links_txt="💡 You Can Send {} Any Photo With Links In Caption Or Any Text With Links \n Use /help To Access Help Section"
-starting_message="👋 Hey There {}! \n 👉 This Bot Can Convert Multiple Links Into Clickable Buttons 🌟 \n 👉 Powerful Buttonize Bot For Telegram Channels \n 👉 Bot Developed By Dev Savior ❤️ \n 👉 Join Channel For More Awesome Bots " 
+starting_message="👋 Hey There {}! \n 👉 This bot can convert multiple links into Telegram buttons  \n 👉 Supports channels and inline mode also  \n 👉 Use /commands to access available commands \n 👉 For complete details about bot use /help " 
 next_1="👉Click On Customize Links To Customize You Links 🔗 \n👉 For More Info You Can Go To Others  "
 next_2="👉 Row Width : Number Of Buttons In Row \n👉 Title : Text In Message \n👉 Label : Label On Buttons-Premium"
 next_78="👉Set Row Width \n👉 Default Is Set To 2 \n☛ 1,2,3 Are Available In Free Plann \n👉  Join Premium To Use Others \n☛ HTML Links Are Not Supported Yet "
@@ -49,7 +49,8 @@ commands='''Available Commands
 ☞ /premium - buy premium membership 
 ☞ /support - chat with admin 
 ☞ /offers - to check available offers
-☞ /send_proof - send payment proof
+☞ /send_proof - send payment proof 
+☞ /settings - 🆕 set default settings
 ☞ /cancel - cancel any ongoing Process''' 
 others_text='''@buttonizebot ✨
   Join channel for more Info 
