@@ -143,7 +143,7 @@ from telebot.types import *
 from links import *
 from telebot import custom_filters
 #my_secret = os.environ['BOT_TOKEN']
-my_secret = "5953623379:AAEjIaN6UsCxtCg0BmmReNWchPwKLtBEOAE"
+my_secret = "5950762617:AAGw2Yo6l5HuhciMl84qC4cd-eASsQPp7CU"
 from telebot.handler_backends import State, StatesGroup
 from telebot.storage import StateMemoryStorage 
 state_storage = StateMemoryStorage()
